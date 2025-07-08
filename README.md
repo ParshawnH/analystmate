@@ -138,8 +138,8 @@ Frontend: Handled by collaborator (React/Vue)
 
 ## 📌 Contact
 For collaboration, feedback or demo requests:
-📧 haynesgene22@gmail.com
-🔗 [LinkedIn](https://www.linkedin.com/in/parshawn-haynes)
+📧 parshawnhaynes@gmail.com
+
 
 ---
 
