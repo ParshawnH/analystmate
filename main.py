@@ -5,7 +5,8 @@ app = FastAPI()
 @app.post("/analyze")
 async def analyze_file(file: UploadFile = File(...)):
     file_content = await file.read()
-    chunks = chunk_text(file_content)
+    extract_text_from_pdf(file_content)
+    chunks = chunk_text(extract_text_from_pdf(file_content))
     results = [ask_ollama(chunks) for chunk in chunks]
     return {"Summary": results}
 
