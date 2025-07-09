@@ -1,4 +1,6 @@
 fastapi
 uvicorn
-PyPDF2
-requests
+openai
+python-dotenv
+PyMuPDF
+tiktoken

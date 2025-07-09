@@ -1,11 +1,11 @@
 # 📘 Project: AnalystMateAI – LLM-Powered SEC Compliance Assistant
 
 ## 🔍 Overview
-AnalystMateAI is an AI-powered financial risk analysis tool that uses a locally hosted Large Language Model (LLM) via Ollama to analyze SEC 10-K filings. The app extracts and classifies material risk disclosures, legal issues, ESG concerns, and financial red flags into a structured JSON summary. It's designed for analysts, auditors, legal teams, and ESG professionals.
+AnalystMateAI is an AI-powered financial risk analysis tool that uses OpenAI's Large Language Model (LLM) to analyze SEC 10-K filings. The app extracts and classifies material risk disclosures, legal issues, ESG concerns, and financial red flags into a structured JSON summary. It's designed for analysts, auditors, legal teams, and ESG professionals.
 
 ## 🧩 Key Features
 - 📄 Upload 10-K PDF filings for analysis
-- 🤖 Uses local LLM (e.g. Mistral or LLaMA3 via Ollama)
+- 🤖 Uses OpenAI LLM (e.g. GPT-3.5-turbo or GPT-4)
 - 📊 Outputs structured JSON with categorized risks:
   - legal
   - financial
@@ -13,7 +13,7 @@ AnalystMateAI is an AI-powered financial risk analysis tool that uses a locally 
   - operational
   - esg
   - other
-- 🔐 100% local and private (no API keys or cloud usage)
+- 🔐 Secure and private (API key required)
 - 📁 Exportable summaries (JSON-ready)
 - 🖥️ Sleek black-themed frontend (to be built separately by collaborator)
 
@@ -24,7 +24,7 @@ AnalystMateAI is an AI-powered financial risk analysis tool that uses a locally 
 2. The FastAPI backend extracts text using PyPDF2.
 3. Text is chunked into LLM-friendly segments.
 4. Each chunk is passed through a financial compliance prompt.
-5. Ollama returns structured JSON summaries per chunk.
+5. OpenAI returns structured JSON summaries per chunk.
 6. All chunks are merged into a single categorized response.
 
 ---
@@ -34,7 +34,7 @@ AnalystMateAI is an AI-powered financial risk analysis tool that uses a locally 
 |-------------|-----------------------------|
 | Backend     | Python, FastAPI             |
 | PDF Parsing | PyPDF2                      |
-| LLM Engine  | Ollama (mistral / llama3)   |
+| LLM Engine  | OpenAI (gpt-3.5-turbo/4)    |
 | Frontend    | React/Vue (built separately)|
 | Deployment  | Local (localhost:8000)      |
 
@@ -44,7 +44,7 @@ AnalystMateAI is an AI-powered financial risk analysis tool that uses a locally 
 ```
 analystmateai/
 ├── main.py              # FastAPI app
-├── ollama_client.py     # Send prompts to local Ollama server
+├── openai_client.py     # Send prompts to OpenAI
 ├── document_utils.py    # PDF text extraction and chunking
 ├── prompts.py           # Prompt used for LLM
 ├── requirements.txt     # Python dependencies
@@ -71,11 +71,12 @@ source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ```
 
-### 4. Run Ollama and Pull a Model
-Make sure [Ollama](https://ollama.com) is installed.
+### 4. Set Up OpenAI API Key
+Obtain your OpenAI API key from https://platform.openai.com/account/api-keys and set it as an environment variable:
 ```
-ollama run mistral
+export OPENAI_API_KEY=sk-...
 ```
+(You can add this line to your `.env` or shell profile for convenience.)
 
 ### 5. Start the Backend Server
 ```
@@ -126,7 +127,7 @@ Stored in `prompts.py`. This prompt instructs the LLM to:
 
 ## 👤 Author
 **Parshawn Haynes**  
-Backend: Python, FastAPI, Ollama Integration  
+Backend: Python, FastAPI, OpenAI Integration  
 Frontend: Handled by collaborator (React/Vue)
 
 ---
@@ -140,7 +141,6 @@ Frontend: Handled by collaborator (React/Vue)
 For collaboration, feedback or demo requests:
 📧 parshawnhaynes@gmail.com
 
-
 ---
 
-**AnalystMateAI** is built to bridge the gap between regulatory documents and actionable insight — entirely local, private, and LLM-powered.
+**AnalystMateAI** is built to bridge the gap between regulatory documents and actionable insight — now powered by OpenAI LLMs.
