@@ -1,146 +1,135 @@
-# 📘 Project: AnalystMateAI – LLM-Powered SEC Compliance Assistant
+# AnalystMateAI - SEC 10-K Risk Analysis Platform
 
-## 🔍 Overview
-AnalystMateAI is an AI-powered financial risk analysis tool that uses OpenAI's Large Language Model (LLM) to analyze SEC 10-K filings. The app extracts and classifies material risk disclosures, legal issues, ESG concerns, and financial red flags into a structured JSON summary. It's designed for analysts, auditors, legal teams, and ESG professionals.
+A comprehensive AI-powered platform for analyzing SEC 10-K filings and extracting structured risk disclosures across legal, financial, regulatory, and operational categories.
 
-## 🧩 Key Features
-- 📄 Upload 10-K PDF filings for analysis
-- 🤖 Uses OpenAI LLM (e.g. GPT-3.5-turbo or GPT-4)
-- 📊 Outputs structured JSON with categorized risks:
-  - legal
-  - financial
-  - regulatory
-  - operational
-  - esg
-  - other
-- 🔐 Secure and private (API key required)
-- 📁 Exportable summaries (JSON-ready)
-- 🖥️ Sleek black-themed frontend (to be built separately by collaborator)
+## Features
 
----
+- **Intelligent Analysis**: AI-powered extraction of risk disclosures from SEC 10-K filings
+- **Structured Output**: Results organized across 8 key categories with JSON formatting
+- **Natural Language**: Comprehensive summaries in plain English
+- **Export Ready**: Download results as JSON or PDF reports
+- **Modern UI**: Beautiful, responsive interface with drag-and-drop file upload
 
-## 🚀 How It Works
-1. User uploads a 10-K filing PDF.
-2. The FastAPI backend extracts text using PyPDF2.
-3. Text is chunked into LLM-friendly segments.
-4. Each chunk is passed through a financial compliance prompt.
-5. OpenAI returns structured JSON summaries per chunk.
-6. All chunks are merged into a single categorized response.
+## Tech Stack
 
----
+### Backend
+- **FastAPI**: Python web framework for the API
+- **OpenAI**: GPT models for intelligent analysis
+- **PyPDF2**: PDF text extraction
+- **ReportLab**: PDF report generation
 
-## 🛠️ Tech Stack
-| Layer       | Technology                  |
-|-------------|-----------------------------|
-| Backend     | Python, FastAPI             |
-| PDF Parsing | PyPDF2                      |
-| LLM Engine  | OpenAI (gpt-3.5-turbo/4)    |
-| Frontend    | React/Vue (built separately)|
-| Deployment  | Local (localhost:8000)      |
+### Frontend
+- **Next.js 14**: React framework with App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first CSS framework
+- **React Dropzone**: Drag-and-drop file upload
+- **Lucide React**: Beautiful icons
+- **React Hot Toast**: Toast notifications
 
----
+## Project Structure
 
-## 🧱 Project Structure
 ```
-analystmateai/
-├── main.py              # FastAPI app
-├── openai_client.py     # Send prompts to OpenAI
-├── document_utils.py    # PDF text extraction and chunking
-├── prompts.py           # Prompt used for LLM
-├── requirements.txt     # Python dependencies
-├── lovable_ui/          # Frontend placeholder (handled externally)
+analystmate/
+├── app/                    # Next.js app directory
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Main page
+├── components/            # React components
+│   ├── Header.tsx         # Header with logo
+│   ├── FileUpload.tsx     # File upload component
+│   ├── FeaturesSection.tsx # Features showcase
+│   ├── AnalysisResults.tsx # Results display
+│   └── FeatureCard.tsx    # Reusable feature card
+├── lib/                   # Utility libraries
+│   └── api.ts            # API client functions
+├── main.py               # FastAPI backend
+├── openai_client.py      # OpenAI integration
+├── documents_utils.py    # PDF processing utilities
+├── prompts.py           # AI prompts
+└── requirements.txt      # Python dependencies
 ```
 
----
+## Setup Instructions
 
-## 📥 Setup Instructions
-### 1. Clone the Repo
-```
-git clone https://github.com/yourusername/analystmateai.git
-cd analystmateai
-```
+### 1. Backend Setup
 
-### 2. Create Virtual Environment
-```
-python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
-```
+1. **Install Python dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 3. Install Dependencies
-```
-pip install -r requirements.txt
-```
+2. **Set up environment variables**:
+   Create a `.env` file in the root directory:
+   ```env
+   OPENAI_API_KEY=your_openai_api_key_here
+   OPENAI_MODEL=gpt-3.5-turbo
+   ```
 
-### 4. Set Up OpenAI API Key
-Obtain your OpenAI API key from https://platform.openai.com/account/api-keys and set it as an environment variable:
-```
-export OPENAI_API_KEY=sk-...
-```
-(You can add this line to your `.env` or shell profile for convenience.)
+3. **Start the FastAPI backend**:
+   ```bash
+   uvicorn main:app --reload --port 8000
+   ```
 
-### 5. Start the Backend Server
-```
-uvicorn main:app --reload
-```
-Visit [http://localhost:8000/docs](http://localhost:8000/docs) to test via Swagger UI.
+### 2. Frontend Setup
 
----
+1. **Install Node.js dependencies**:
+   ```bash
+   npm install
+   ```
 
-## 🧪 Test with a PDF
-Use Swagger UI or curl:
-```bash
-curl -X POST "http://localhost:8000/analyze/" \
-  -H  "accept: application/json" \
-  -F "file=@your_file.pdf"
-```
+2. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
 
-Expected Output:
-```json
-{
-  "structured_summary": {
-    "legal": ["Pending litigation with supplier X..."],
-    "financial": ["Revenue declined 12% YoY due to inflation..."],
-    ...
-  }
-}
-```
+3. **Open your browser**:
+   Navigate to `http://localhost:3000`
 
----
+## Usage
 
-## 💬 Prompt Engineering
-Stored in `prompts.py`. This prompt instructs the LLM to:
-- Extract and categorize risk into 6 areas
-- Output valid JSON
-- Keep statements short and insightful (3–4 sentences)
-- Focus on material and novel risks
+1. **Upload a 10-K filing**: Drag and drop a PDF file or click to browse
+2. **Wait for analysis**: The AI will process your document (may take a few minutes)
+3. **Review results**: View structured analysis across different risk categories
+4. **Export results**: Download as JSON or PDF format
 
----
+## API Endpoints
 
-## 🧠 Potential Add-Ons
-- Compare two filings year-over-year
-- Chat with the filing (chatbot UI)
-- PDF source clause tracing
-- Export reports as downloadable PDFs
-- In-app risk dashboard with visualizations
+- `POST /analyze`: Upload and analyze a PDF file
+  - Accepts: `multipart/form-data` with PDF file
+  - Returns: Analysis results as text or PDF
 
----
+## Development
 
-## 👤 Author
-**Parshawn Haynes**  
-Backend: Python, FastAPI, OpenAI Integration  
-Frontend: Handled by collaborator (React/Vue)
+### Backend Development
+- The FastAPI server runs on `http://localhost:8000`
+- API documentation available at `http://localhost:8000/docs`
+- Uses hot reload for development
 
----
+### Frontend Development
+- Next.js development server runs on `http://localhost:3000`
+- API calls are proxied to the backend via Next.js rewrites
+- TypeScript for type safety
+- Tailwind CSS for styling
 
-## 📜 License
-[MIT License](LICENSE)
+## Analysis Categories
 
----
+The AI analyzes SEC 10-K filings across these key areas:
 
-## 📌 Contact
-For collaboration, feedback or demo requests:
-📧 parshawnhaynes@gmail.com
+1. **Legal Disclosures**: Litigation, legal proceedings, SEC comments, audit opinions
+2. **Financial Health**: Revenue trends, margins, debt levels, cash flow issues
+3. **Regulatory Compliance**: New laws, compliance obligations, audit control issues
+4. **Operational Risks**: Supply chain problems, business risk changes
+5. **ESG Considerations**: Climate risk, GHG emissions, social practices, governance
+6. **Other Notable Disclosures**: Executive compensation, customer concentration risks
 
----
+## Contributing
 
-**AnalystMateAI** is built to bridge the gap between regulatory documents and actionable insight — now powered by OpenAI LLMs.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
