@@ -30,6 +30,7 @@ from fastapi.responses import JSONResponse
 
 @app.post("/analyze")
 async def analyze_file(file: UploadFile = File(...)):
+    print("Received /analyze request")
     file_content = await file.read()
     pdf_stream = BytesIO(file_content)
 
