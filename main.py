@@ -28,6 +28,10 @@ app.add_middleware(
 
 from fastapi.responses import JSONResponse
 
+@app.get("/")
+def read_root():
+    return {"message": "Backend is running!"}
+
 @app.post("/analyze")
 async def analyze_file(file: UploadFile = File(...)):
     print("Received /analyze request")
